@@ -12,14 +12,14 @@ import pandas as pd
 
 # API Views
 
-@login_required
+
 @api_view(['GET'])
 def GetAllBeneficiaries(request):
     bn = Beneficiary.objects.all().order_by('beneficiary_id')
     serializer = BeneficiarySerializer(bn, many = True)
     return Response(seralizer.data)
 
-@login_required
+
 @api_view(['GET'])
 def GetBeneficiaryByID(request, bid):
     try:
@@ -30,7 +30,7 @@ def GetBeneficiaryByID(request, bid):
     serializer = BeneficiarySerializer(bn, many = False)
     return Response(serializer.data, status=201)
 
-@login_required
+
 @api_view(['POST'])
 def CreateBeneficiary(request):
     serializer = BeneficiarySerializer(request.data)
@@ -40,7 +40,7 @@ def CreateBeneficiary(request):
     else:
         return Response(serializer.errors, status=400)
 
-@login_required
+
 @api_view(['PUT'])
 def UpdateBeneficiary(request, bid):
     try:
@@ -55,7 +55,7 @@ def UpdateBeneficiary(request, bid):
     else:
         return Response(serializer.errors, status=400)
 
-@login_required
+
 @api_view(['DELETE'])
 def DeleteBeneficiary(request, bid):
     try:

@@ -13,7 +13,7 @@ from .serializers import ProfileSerializer
 
 #API Views...
 
-@login_required
+
 @api_view(['GET'])
 def GetAllUsers(request):
     prf = Profile.objects.all().order_by('user__id')
@@ -21,7 +21,7 @@ def GetAllUsers(request):
     return Response(serializer.data)
 
 
-@login_required
+
 @api_view(['GET'])
 def GetUserByID(response, uid):
     try:
@@ -32,7 +32,7 @@ def GetUserByID(response, uid):
     serializer = ProfileSerializer(prf, many = False)
     return Response(serializer.data, status=201)
 
-@login_required
+
 @api_view(['POST'])
 def CreateUser(request):
     serializer = ProfileSerializer(data = request.data)
@@ -42,7 +42,7 @@ def CreateUser(request):
     else:
         return Response(seralizer.errors, status = 400)
 
-@login_required
+
 @api_view(['PUT'])
 def UpdateUser(request, uid):
     try:
@@ -57,7 +57,7 @@ def UpdateUser(request, uid):
     else:
         return Response(seralizer.errors, status = 400)
 
-@login_required 
+ 
 @api_view(['DELETE'])
 def DeleteUser(request, uid):
     try:

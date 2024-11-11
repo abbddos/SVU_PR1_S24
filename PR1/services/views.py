@@ -12,14 +12,14 @@ import pandas as pd
 
 # API Views
 
-@login_required
+
 @api_view(['GET'])
 def GetAllServices(request):
     sr = Service.objects.all().order_by('service_id')
     serializer = ServiceSerializer(sr, many = True)
     return Response(seralizer.data)
 
-@login_required
+
 @api_view(['GET'])
 def GetServiceByID(request, sid):
     try:
@@ -30,7 +30,7 @@ def GetServiceByID(request, sid):
     serializer = ServiceSerializer(sr, many = False)
     return Response(serializer.data, status=201)
 
-@login_required
+
 @api_view(['POST'])
 def CreateService(request):
     serializer = ServiceSerializer(request.data)
@@ -40,7 +40,7 @@ def CreateService(request):
     else:
         return Response(serializer.errors, status=400)
 
-@login_required
+
 @api_view(['PUT'])
 def UpdateService(request, sid):
     try:
@@ -55,7 +55,7 @@ def UpdateService(request, sid):
     else:
         return Response(serializer.errors, status=400)
 
-@login_required
+
 @api_view(['DELETE'])
 def DeleteService(request, sid):
     try:

@@ -12,14 +12,14 @@ import pandas as pd
 
 # API Views
 
-@login_required
+
 @api_view(['GET'])
-def GetAllActivitys(request):
+def GetAllActivities(request):
     ac = Activity.objects.all().order_by('activity_id')
     serializer = ActivitySerializer(ac, many = True)
     return Response(seralizer.data)
 
-@login_required
+
 @api_view(['GET'])
 def GetActivityByID(request, aid):
     try:
@@ -30,7 +30,7 @@ def GetActivityByID(request, aid):
     serializer = ActivitySerializer(ac, many = False)
     return Response(serializer.data, status=201)
 
-@login_required
+
 @api_view(['POST'])
 def CreateActivity(request):
     serializer = ActivitySerializer(request.data)
@@ -40,7 +40,7 @@ def CreateActivity(request):
     else:
         return Response(serializer.errors, status=400)
 
-@login_required
+
 @api_view(['PUT'])
 def UpdateActivity(request, aid):
     try:
@@ -55,7 +55,7 @@ def UpdateActivity(request, aid):
     else:
         return Response(serializer.errors, status=400)
 
-@login_required
+
 @api_view(['DELETE'])
 def DeleteActivity(request, aid):
     try:
