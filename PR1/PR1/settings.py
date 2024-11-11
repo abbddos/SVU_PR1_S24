@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     #'cirspy_forms'
     #See Corey Schafer to fix crispy forms issue...
 
-    #'admin.apps.PR1AdminConfig',
+    'admin_.apps.PR1AdminConfig',
     'services.apps.ServicesConfig',
     'beneficiaries.apps.BeneficiariesConfig',
     'activities.apps.ActivitiesConfig',
