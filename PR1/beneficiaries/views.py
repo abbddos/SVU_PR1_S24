@@ -17,7 +17,7 @@ import pandas as pd
 def GetAllBeneficiaries(request):
     bn = Beneficiary.objects.all().order_by('beneficiary_id')
     serializer = BeneficiarySerializer(bn, many = True)
-    return Response(seralizer.data)
+    return Response(serializer.data)
 
 
 @api_view(['GET'])
@@ -33,7 +33,7 @@ def GetBeneficiaryByID(request, bid):
 
 @api_view(['POST'])
 def CreateBeneficiary(request):
-    serializer = BeneficiarySerializer(request.data)
+    serializer = BeneficiarySerializer(data = request.data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=201)

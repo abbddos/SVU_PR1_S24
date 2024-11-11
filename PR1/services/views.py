@@ -17,7 +17,7 @@ import pandas as pd
 def GetAllServices(request):
     sr = Service.objects.all().order_by('service_id')
     serializer = ServiceSerializer(sr, many = True)
-    return Response(seralizer.data)
+    return Response(serializer.data)
 
 
 @api_view(['GET'])
@@ -33,7 +33,7 @@ def GetServiceByID(request, sid):
 
 @api_view(['POST'])
 def CreateService(request):
-    serializer = ServiceSerializer(request.data)
+    serializer = ServiceSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=201)

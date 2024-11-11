@@ -17,7 +17,7 @@ import pandas as pd
 def GetAllActivities(request):
     ac = Activity.objects.all().order_by('activity_id')
     serializer = ActivitySerializer(ac, many = True)
-    return Response(seralizer.data)
+    return Response(serializer.data)
 
 
 @api_view(['GET'])
@@ -33,7 +33,7 @@ def GetActivityByID(request, aid):
 
 @api_view(['POST'])
 def CreateActivity(request):
-    serializer = ActivitySerializer(request.data)
+    serializer = ActivitySerializer(data = request.data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=201)

@@ -40,7 +40,7 @@ def CreateUser(request):
         serializer.save()
         return Response(serializer.data, status=201)
     else:
-        return Response(seralizer.errors, status = 400)
+        return Response(serializer.errors, status = 400)
 
 
 @api_view(['PUT'])
