@@ -1,7 +1,7 @@
 from django.db import models
 
 class Beneficiary(models.Model):
-    beneficiary_id = models.IntegerField(primary_key = True)
+    beneficiary_id = models.AutoField(primary_key = True)
     first_name = models.CharField(max_length = 50, null = False, blank = False)
     middle_name = models.CharField(max_length = 50, null = False, blank = False)
     last_name = models.CharField(max_length = 50, null = False, blank = False)

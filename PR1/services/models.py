@@ -2,7 +2,7 @@ from django.db import models
 import datetime
 
 class Service(models.Model):
-    service_id = models.IntegerField(primary_key = True)
+    service_id = models.AutoField(primary_key = True)
     service_type = models.CharField(max_length = 50, choices = [
         ('GFA','GFA'),
         ('NFI','NFI'),
