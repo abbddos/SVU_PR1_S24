@@ -38,13 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    #'cirspy_forms'
+    'crispy_forms',
     #See Corey Schafer to fix crispy forms issue...
 
     'admin_.apps.PR1AdminConfig',
     'services.apps.ServicesConfig',
     'beneficiaries.apps.BeneficiariesConfig',
     'activities.apps.ActivitiesConfig',
+    'login.apps.LoginConfig',
+    'home.apps.HomeConfig',
 
 ]
 
@@ -124,7 +126,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+#LOGIN_REDIRECT_URL = 'home'
+LOGIN_URL = 'login'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Default primary key field type

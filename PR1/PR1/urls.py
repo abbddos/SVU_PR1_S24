@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
+from login import views as login_views
 from admin_ import views as admin_views
 from services import views as services_views
 from beneficiaries import views as beneficiaries_views 
@@ -24,6 +25,8 @@ from activities import views as activities_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('login.urls')),
+    path('login/', auth_views.LoginView.as_view(template_name = 'login/login.html'), name = 'login'),
     path('admin_/', include('admin_.urls')),
     path('activities/', include('activities.urls')),
     path('beneficiaries/', include('beneficiaries.urls')),
