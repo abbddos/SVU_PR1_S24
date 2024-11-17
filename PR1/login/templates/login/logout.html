@@ -1,0 +1,17 @@
+{% load static %}
+{% load crispy_forms_tags%}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel = "stylesheet" href = "{% static 'login/css/login.css'%}" />
+        <title>Dr. Dre</title>
+    </head>
+    <body>
+        <div class = 'logout-container'>
+            <h2> You're logged out...</h2>
+            <a href = "{% url 'login'%}" class = 'login-button'> Go back to log in</a>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,18 @@
+{% load static %}
+{% load crispy_forms_tags%}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel = "stylesheet" href = "{% static 'login/css/login.css'%}" />
+        <title>Dr. Dre</title>
+    </head>
+    <body>
+        <div class = 'Password-message-reset-container'>
+            <h1 style = "color: white;">Password Reset Complete...</h1>
+            <p style = "color: white;">Your new password was set, you can go ahead and log in now...</p>
+            <a href = '/' class = 'login-button'>Log in</a>
+        </div>
+    </body>
+</html>
