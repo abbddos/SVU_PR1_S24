@@ -39,8 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'crispy_forms',
-    #See Corey Schafer to fix crispy forms issue...
-
     'admin_.apps.PR1AdminConfig',
     'services.apps.ServicesConfig',
     'beneficiaries.apps.BeneficiariesConfig',
@@ -135,3 +133,12 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'admin_.Profile'
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True 
+EMAIL_HOST_USER = "someemail@mail.com"
+EMAIL_HOST_PASSWORD = "somepassword"
