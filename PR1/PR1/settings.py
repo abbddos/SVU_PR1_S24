@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'beneficiaries.apps.BeneficiariesConfig',
     'activities.apps.ActivitiesConfig',
     'login.apps.LoginConfig',
-    'home.apps.HomeConfig',
+    'home_.apps.HomeConfig'
+
 
 ]
 
@@ -125,7 +126,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = '/static/'
-#LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 

@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <script src = "{% static 'home_/Js/jquery/dist/jquery.min.js' %}"></script>
+        <link rel = "stylesheet" href = "{% static 'home_/css/main.css'%}" />
+        <title>Dr. Dre Cars Shop</title>
+    </head>
+    <body>
+      <nav class = 'main-nav'>
+        <ul>
+          <div class = 'left-stuff-container'>
+            <li><a href="{% url 'home'%}">Home</a></li>
+            {% if prf.role == 'Admin'%}
+            <li class = 'dropdown'><a href="#">Admin</a>
+              <div class="dropdown-content">
+                <a href="#">Departments</a>
+                <a href="#">Teams</a>
+                <a href="#">Users</a>
+              </div>
+            </li>
+            {% endif %}
+            <li class = 'dropdown'><a href="#">Jobs</a>
+              <div class = 'dropdown-content'>
+                {% if prf.role == 'Admin' %}
+                <a href ="#">Customers</a>
+                {% endif %}
+                <a href = "#">Jobs</a>
+              </div>
+            </li>
+          </div>
+          <div class = 'right-stuff-container'>
+            <li class = 'dropdown'>
+              <a href="javascript:void(0)" class="dropbtn">{{user.email}} </a>
+              <div class="dropdown-content">
+                <a href="#">View Profile</a>
+                <form method="POST" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class = 'logout'>logout</button>
+                </form>
+              </div>
+            </li>
+          </div>
+        </ul> 
+      </nav>
+      <div class = 'mainpage'>
+        {% block content %}{% endblock %}
+      </div>
+    </body> 
+</html>

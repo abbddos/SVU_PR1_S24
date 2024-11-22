@@ -19,13 +19,18 @@ from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from login import views as login_views
 from admin_ import views as admin_views
+from home_ import views as home_views
 from services import views as services_views
 from beneficiaries import views as beneficiaries_views 
 from activities import views as activities_views
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('login.urls')),
+    path('home/', include('home_.urls')),
     path('login/', auth_views.LoginView.as_view(template_name = 'login/login.html'), name = 'login'),
     path('reset_password/', auth_views.PasswordResetView.as_view(template_name = 'login/reset_password.html'), name = 'reset_password'),
     path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(template_name = 'login/password_reset_sent.html'), name = 'password_reset_done'),

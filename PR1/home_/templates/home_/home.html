@@ -1,0 +1,35 @@
+{% extends "home_/base.html"%}
+{% block content %}
+{% load static %}
+<div class = 'actionpage'>
+    <div class = 'all-services'>
+        <div class = 'part-container'> 
+            <div class = 'image-container'>
+                <img class = 'part-image' src = "{% static 'home_/images/cadillac-black.jpg'%}"/>
+            </div>
+            <div class = 'caption-container'>
+                <h4>Classical cars renovation</h4>
+                <p>In Dr. Dre, we breath life in your classical vehicle. We maintain its vintage spirit and give it new life with new technology. So you enjoy modern performance with the classy style.</p>
+            </div>
+        </div>
+        <div class = 'part-container'> 
+            <div class = 'image-container'>
+                <img class = 'part-image' src = "{% static 'home_/images/cadillac-sts.jpg'%}"/>
+            </div>
+            <div class = 'caption-container'>
+                <h4>Modern cars customization</h4>
+                <p>In Dr. Dre, we make your brand new car your own. Add your personality to your ride and drive in your own style.</p>
+            </div>
+        </div>
+        <div class = 'part-container'> 
+            <div class = 'image-container'>
+                <img class = 'part-image' src = "{% static 'home_/images/services.jpg'%}"/>
+            </div>
+            <div class = 'caption-container'>
+                <h4>High quality services</h4>
+                <p>In Dr. Dre, pamper your ride with top notch quality services, to enjoy the best ride you can ever have.</p>
+            </div>
+        </div>
+    </div>
+</div>  
+{% endblock content%}

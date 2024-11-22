@@ -1,0 +1,357 @@
+body{
+    margin: 0px;;
+    padding: 0px;;
+    font-family: "Arial Black", Gadget, sans-serif;
+    background-size: cover;
+  }
+  
+  .main-nav{
+    background-color: rgb(100,0,100);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+  }
+  
+  .menu-icon{
+    width: 25px;
+    height: 25px;
+    display: none;
+  }
+  
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .left-stuff-container{
+    margin-left: 5%;
+  }
+  
+  li {
+    float: left;
+  }
+  
+  li a {
+    display: block;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    color: white;
+    border-radius: 4px;
+    transition: all 0.1s ease-out;
+  }
+
+  li a:hover {
+    background-color: black;
+    transition: all 0.1s ease-out;
+  }
+  
+  li a:active{
+    color: rgb(100,0,100);
+    background-color: white;
+  }
+  
+  .right-stuff-container {
+    display: inline-block;
+    float: right;
+    margin-right: 10%;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: rgba(0,0,0,0.8);
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    padding: 2px;
+    border-radius: 4px;
+  }
+  
+  .dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    border-radius: 4px;
+    transition: all 0.1s ease-out;
+  }
+  
+  .dropdown-content a:hover {
+    color: rgba(100,0,100,0.8); 
+    background-color: white; 
+    font-weight: bold; 
+    transition: all 0.1s ease-out;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  .dropdown-content a:active {
+    background-color:white;
+    color: rgb(100,0,0);
+  }
+
+  .logout {
+    color: white;
+    padding: 12px 16px;
+    display: block;
+    text-align: center;
+    border-radius: 4px;
+    transition: all 0.1s ease-out;
+    background-color: rgba(0,0,0,0);
+    width: 100%;
+    border-width: 0px;
+  }
+  
+
+  .logout:hover{
+    color: rgba(100,0,100,0.8); 
+    background-color: white; 
+    font-weight: bold; 
+    transition: all 0.1s ease-out;
+  }
+
+  .logout:active{
+    background-color:white;
+    color: rgb(100,0,0);
+  }
+
+  .mainpage{
+    margin-top: 0px;
+  }
+
+  .actionpage{
+    margin-top: 2%;
+    margin: 2%;
+    padding: 15px;
+    width: 77%;
+  }
+
+  .all-services{
+    margin-top: 5%;
+    margin-left: 18%;
+  }
+
+  .part-container{
+    width: 32%;
+    height: 50%;
+    float: left;
+    margin: 5px;
+    border: solid white; 
+    transition: all 0.1s ease-out;
+  }
+
+  .part-container:hover{
+    box-shadow:10px 5px 5px rgba(255, 206, 255, 0.836);
+    transition: all 0.1s ease-out;
+  }
+
+  .part-image{
+    width: 100%;
+    height: 75%;
+  }
+
+  .action-header{
+    padding: 1%;
+    border-bottom: solid 1px silver;
+  }
+
+  form{
+    margin-top: 5%;
+    width: 100%;
+
+  }
+
+  .form-group{
+    padding: 5px;
+  }
+
+  .legend-basic{
+    color: rgb(100,0,100);
+    font-weight: bold;
+  }
+
+  input[type = text]{
+    width: 50%;
+    border: solid;
+    border-color: rgb(100,0,100);
+    border-width: 1px;
+    border-radius: 3px;
+  }
+
+  input[type = email]{
+    width: 50%;
+    border: solid;
+    border-color: rgb(100,0,100);
+    border-width: 1px;
+    border-radius: 3px;
+  }
+
+  select {
+    width: 50%;
+    border: solid;
+    border-color: rgb(100,0,100);
+    border-width: 1px;
+    border-radius: 3px;
+  }
+
+  .btn-active{
+    height: 35px;
+    width: 120px;
+    background-color: white;
+    color: rgb(100,0,100);
+    border: solid 1px rgb(100,0,100);
+    border-radius: 4px;
+    transition: all 0.1s ease-out;
+  }
+
+  .btn-active:hover{
+    background-color: rgb(100,0,100);
+    color: white;
+    border: solid 1px white;
+    transition: all 0.1s ease-out;
+  }
+
+  .btn-download{
+    text-decoration: none;
+    padding: 6px;
+    font-size: 15px;
+    height: 35px;
+    width: 220px;
+    background-color: white;
+    color: black;
+    border: solid 1px black;
+    border-radius: 4px;
+    transition: all 0.1s ease-out;
+    cursor:default;
+  }
+
+  .btn-download:hover{
+    background-color: black;
+    border-color: white;
+    color: white;
+    transition: all 0.1s ease-out;
+  }
+
+  table{
+    width: 95%;
+    border: solid;
+    border-width: 1px;
+    border-color: silver;
+    overflow: scroll;
+    margin-top: 1%;
+    margin-bottom: 2%;
+    
+  }
+
+  th{
+    width: auto;
+    background-color: rgb(100,0,100);
+    color: white;
+    text-align: left;
+    font-weight:normal;
+    padding: 5px;
+    border-bottom: solid 1px;
+  }
+
+  .False {
+    color: red;
+    text-align: left;
+  }
+
+tr{
+    border-bottom: solid;
+    border-width: 1px;
+    border-color: black;
+    background-color: white;
+}
+
+tr:hover{
+  background-color: rgb(224,224,224);
+}
+
+tr:nth-child(even){
+  background-color: #eee;
+}
+
+tr:nth-child(even):hover{
+  background-color: rgb(224,224,224);
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 10px;
+  width: 50%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: rgb(100,0,100);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.success{
+  width:45%;
+  padding: 3px;
+  padding-left: 15px;
+  color: blue;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.error{
+  width: 45%;
+  padding: 3px;
+  padding-left: 15px;
+  color: red;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.Canceled{
+  color: red;
+}
+
+.In-Progress{
+  color: green;
+}
+
+.On-Hold{
+  color: orange
+}
+
+.Complete{
+  color: blue;
+}

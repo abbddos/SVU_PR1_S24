@@ -50,3 +50,4 @@ class Beneficiary(models.Model):
 
     def __str__(self):
         return f'Beneficiary ID: {self.beneficiary_id} Name: {str(self.last_name).upper()}, {self.first_name} {self.middle_name}, Sex: {self.sex}, Status: {self.displacement_status}'
+        
