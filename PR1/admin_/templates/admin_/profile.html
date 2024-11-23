@@ -1,0 +1,49 @@
+{% extends "home_/base.html"%}
+{% load crispy_forms_tags%}
+{% block content %}
+    <div class = "actionpage">
+        <!--FORM HERE-->
+        <form method = 'POST' enctype = "multipart/form-data", id = 'ProfileUpdateForm', action = "{% url 'UpdateUser' user.email%}">
+            {% csrf_token %}
+            <fieldset class = 'form-group'>
+                <h3 class = 'legend-basic', id = "{{user.email}}">{{user.email}}</h3>
+                {{form}}
+                <small><a href = "{% url 'change_password' user.email %}">Change Password...</a></small>
+            </fieldset>
+            <div class = 'form-group'>
+                <button class = 'btn-active' type = 'submit'>Update</button>
+            </div>
+        </form>
+    </div>
+    <div class = 'messages-container'>
+        {% if messages %}
+            {% for message in messages %}
+                <p class = "{{message.tags}}">{{message}}</p>
+            {% endfor %}
+        {% endif %}
+      </div>
+    <script>
+        $(document).ready(function(){
+            var pid = $('.legend-basic').attr('id');
+            $.getJSON('/admin_/GetUserByID/' + pid, function(data){
+                $('#id_first_name').val(data.first_name);
+                $('#id_last_name').val(data.last_name);
+            });
+            $('#ProfileUpdateForm').submit(function(event){
+                
+                event.preventDefault();
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type : $(this).attr('method'),
+                    data : $(this).serialize(),
+                    success: function(response){
+                        alert('Profile is updated successfully... :)');
+                    },
+                    error: function(xhr, status, error){
+                        alert('Error while updating profile... :(');
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

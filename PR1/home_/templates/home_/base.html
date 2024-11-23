@@ -20,10 +20,10 @@
             <li class = 'dropdown'>
               <a href="javascript:void(0)" class="dropbtn">{{user.email}} </a>
               <div class="dropdown-content">
-                <a href="#">View Profile</a>
-                <form method="POST" action="{% url 'logout' %}">
+                <a href="{% url 'UserProfile' user.email %}">View Profile</a>
+                <form method="POST" action="{% url 'logout' %}" class = "logout">
                     {% csrf_token %}
-                    <button type="submit" class = 'logout'>logout</button>
+                    <button type="submit" class = 'logout-btn'>logout</button>
                 </form>
               </div>
             </li>

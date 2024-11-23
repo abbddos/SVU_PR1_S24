@@ -6,3 +6,9 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = '__all__'
         depth = 1
+        
+
+class UpdateProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile 
+        fields = ['first_name', 'last_name']
