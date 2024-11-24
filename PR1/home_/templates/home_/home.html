@@ -4,13 +4,13 @@
 <div class = 'actionpage'>
     <div class = 'all-services'>
         {% if prf.role == 'Admin'%}
-        <a href="#">
+        <a href="{% url 'register_user' %}">
             <div class = 'part-container'> 
                 <div class = 'image-container'>
                     <img class = 'part-image' src = "{% static 'home_/images/sarc-admin.jpeg'%}"/>
                 </div>
                 <div class = 'caption-container'>
-                    <h4>Administration</h4>
+                    <h4>Users</h4>
                     <p>B.R.A.V.E.S administraiton for users' creation, editing, activation, deactivation and management of B.R.A.V.E.S data and access. </p>
                 </div>
             </div>

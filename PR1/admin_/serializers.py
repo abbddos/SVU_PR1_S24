@@ -12,3 +12,8 @@ class UpdateProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile 
         fields = ['first_name', 'last_name']
+
+class UpdateUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile 
+        fields = ['first_name','last_name','email','role','is_active']

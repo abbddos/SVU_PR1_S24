@@ -6,8 +6,8 @@ from .models import Profile
 
 class UserRegisterForm(ModelForm):
     class Meta:
-        model = User
-        fields = '__all__'
+        model = Profile
+        fields = ['first_name','last_name','email','role','is_active']
 
 class UserProfileForm(ModelForm):
     class Meta:

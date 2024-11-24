@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'crispy_forms',
+    'crispy_bootstrap4',
     'admin_.apps.PR1AdminConfig',
     'services.apps.ServicesConfig',
     'beneficiaries.apps.BeneficiariesConfig',

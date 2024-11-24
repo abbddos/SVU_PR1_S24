@@ -9,7 +9,10 @@ from .forms import UserRegisterForm, UserProfileForm
 from datetime import datetime
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import ProfileSerializer, UpdateProfileSerializer
+from .serializers import ProfileSerializer, UpdateProfileSerializer, UpdateUserSerializer
+from django.contrib.auth.hashers import make_password
+import json
+
 
 @login_required
 def UserProfile(request, uid):
@@ -40,12 +43,18 @@ def ChangePassword(request, uid):
     }
     return render(request, 'admin_/change_password.html', context)
 
+@login_required
+def RegisterUser(request):
+    context={
+        'form': UserRegisterForm()
+    }
+    return render(request, 'admin_/register_user.html', context)
 
 #API Views...
 
 @api_view(['GET'])
 def GetAllUsers(request):
-    prf = Profile.objects.all().order_by('user__id')
+    prf = Profile.objects.all()
     serializer = ProfileSerializer(prf, many = True)
     return Response(serializer.data)
 
@@ -64,7 +73,26 @@ def GetUserByID(response, uid):
 
 @api_view(['POST'])
 def CreateUser(request):
-    serializer = ProfileSerializer(data = request.data)
+    data_ = request.data.copy()
+    email = data_['email']
+    password = email.split('@')[0] + '&123'
+    data_['password'] = make_password(password)
+    serializer = ProfileSerializer(data = data_)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=201)
+    else:
+        return Response(serializer.errors, status = 400)
+
+
+@api_view(['POST'])
+def UpdateProfile(request, uid):
+    try:
+        prf = Profile.objects.get(email = uid)
+    except Profile.DoesNotExist:
+        return Response(status = 404)
+
+    serializer = UpdateProfileSerializer(prf, data = request.data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=201)
@@ -79,7 +107,7 @@ def UpdateUser(request, uid):
     except Profile.DoesNotExist:
         return Response(status = 404)
 
-    serializer = UpdateProfileSerializer(prf, data = request.data)
+    serializer = UpdateUserSerializer(prf, data = request.data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=201)

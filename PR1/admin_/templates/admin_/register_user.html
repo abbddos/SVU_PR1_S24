@@ -1,0 +1,144 @@
+{% extends "home_/base.html"%}
+{% load crispy_forms_tags%}
+{% block content %}
+    <div class = "actionpage">
+        <div class="action-header">
+            <button class = 'btn-active' id = "create-user">Create new user</button>
+            <input type = "text" placeholder = "Search"id = 'srch' />
+        </div>
+        <table>
+            <tr id="Grid">
+                <th>First Name:</th>
+                <th>Last Name:</th>
+                <th>Email:</th>
+                <th>Active:</th>
+                <th>Role:</th>
+            </tr>
+        </table>
+        <div class = 'messages-container'>
+            {% if messages %}
+                {% for message in messages %}
+                    <p class = "{{message.tags}}">{{message}}</p>
+                {% endfor %}
+            {% endif %}
+          </div>
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <form method = 'POST' id = "UserCreationForm" style = "
+                margin-left: 2%;
+                margin-top: 1%;
+                width: 75%;
+                border-radius: 0px;
+                box-shadow: none;
+                ">
+                    {% csrf_token %}
+                    <fieldset class = 'form-group'>
+                        <legend class = 'legend-basic' id = "users-legend">Create New User</legend>
+                        {{form|crispy}}
+                        <div class = 'form-group'>
+                            <button class = 'btn-active' type = 'submit'>Submit</button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function(){
+
+            var submission_method = 0;
+            var uid;
+
+            $.getJSON('/admin_/GetAllUsers/', function(data){
+                console.log(data);
+                for(var i=0; i < data.length; i++){                
+                   $('#Grid').after("<tr class = '"+data[i].is_active+" table-row' id = '"+data[i].email+"''><td>"+data[i].first_name+"</td><td>"+data[i].last_name+"</td><td>"+data[i].email+"</td><td>"+data[i].is_active+"</td><td>"+data[i].role+"</td></tr>");
+                }
+
+                $('.table-row').click(function(){
+                    $('#myModal').show();
+                    submission_method = 1;
+                    var row_id = $(this).attr('id');
+                    $('#users-legend').text('Edit User');
+                    $.getJSON("/admin_/GetUserByID/" + row_id, function(data1){
+                        $('#id_first_name').val(data1.first_name);
+                        $('#id_last_name').val(data1.last_name);
+                        $('#id_email').val(data1.email);
+                        $('#id_is_active').attr('checked', data1.is_active);
+                        $('#id_role').prepend("<option value = '"+data1.role+"' selected hidden>"+data1.role+"</option>");
+                        uid = data1.email;
+                    });
+                });
+            });
+
+            $('#srch').keyup(function(){
+                search_table($(this).val());
+            });
+
+            function search_table(value){
+                $('.table-row').each(function(){
+        
+                $(this).each(function(){
+                    if($(this).text().toLocaleLowerCase().indexOf(value.toLocaleLowerCase()) >= 0){ $(this).show();}
+                    else{$(this).hide();}
+                    });
+                });
+            }
+
+            $('#create-user').click(function(){
+                $('#myModal').show();
+                $('#div_id_password').hide();
+            });
+
+            $('.close').click(function(){
+                $('#myModal').hide();
+                submission_method = 0;
+                $('#users-legend').text('Create New User');
+                $('#id_first_name').val("");
+                $('#id_last_name').val("");
+                $('#id_email').val("");
+                $('#id_is_active').attr('checked', true);
+                $('#id_role').prepend("<option value = 'User' selected hidden>User</option>");
+            });
+
+            $('#UserCreationForm').submit(function(event){
+                event.preventDefault();
+                if(submission_method == 0){
+                    //create new user
+                    $.ajax({
+                        url: "/admin_/new_user/",
+                        type: "POST",
+                        data: $(this).serialize(),
+                        success: function(response){
+                            alert('New user is successfully created... :)');
+                            submission_method = 0;
+                            window.location.reload();
+                        },
+                        error: function(xhr, status, error){
+                            alert('Error while creating user... :(');
+                            submission_method = 0;
+                        }
+                    });
+                }
+                else if(submission_method == 1){
+                    //update current user
+                    $.ajax({
+                        url: "/admin_/UpdateUser/"+ uid,
+                        type: "POST",
+                        data: $(this).serialize(),
+                        success: function(response){
+                            alert('User is successfully updated... :)');
+                            submission_method = 0;
+                            window.location.reload();
+                        },
+                        error: function(xhr, status, error){
+                            alert('Error while updating user... :(');
+                            submission_method = 0;
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+    {% endblock %}

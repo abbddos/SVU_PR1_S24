@@ -3,11 +3,11 @@
 {% block content %}
     <div class = "actionpage">
         <!--FORM HERE-->
-        <form method = 'POST' enctype = "multipart/form-data", id = 'ProfileUpdateForm', action = "{% url 'UpdateUser' user.email%}">
+        <form method = 'POST' enctype = "multipart/form-data", id = 'ProfileUpdateForm', action = "{% url 'UpdateProfile' user.email%}">
             {% csrf_token %}
             <fieldset class = 'form-group'>
                 <h3 class = 'legend-basic', id = "{{user.email}}">{{user.email}}</h3>
-                {{form}}
+                {{form|crispy}}
                 <small><a href = "{% url 'change_password' user.email %}">Change Password...</a></small>
             </fieldset>
             <div class = 'form-group'>

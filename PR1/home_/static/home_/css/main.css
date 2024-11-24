@@ -195,7 +195,7 @@ body{
     background-color: white;
     margin-top: 5%;
     width: 25%;
-    height: 230px;
+    height: 300px;
     padding-left: 5%;
     padding-bottom: 1%;
     border-radius: 5%;
@@ -214,7 +214,7 @@ body{
   }
 
   input[type = text]{
-    width: 50%;
+    width: 60%;
     height: 30px;
     border: solid;
     border-color: rgb(200,0,0);
@@ -225,7 +225,7 @@ body{
   }
 
   input[type = email]{
-    width: 50%;
+    width: 60%;
     height: 30px;
     border: solid;
     border-color: rgb(200,0,0);
@@ -235,15 +235,23 @@ body{
   }
 
   input[type = password]{
-    width: 50%;
+    width: 60%;
     height: 30px;
     border: solid;
     border-color: rgb(200,0,0);
     border-width: 1px;
     border-radius: 3px;
     margin: 5px;
-   
+  }
 
+  select{
+    width: 60%;
+    height: 30px;
+    border: solid;
+    border-color: rgb(200,0,0);
+    border-width: 1px;
+    border-radius: 3px;
+    margin: 5px;
   }
     
 li{
@@ -323,7 +331,7 @@ li{
     border-bottom: solid 1px;
   }
 
-  .False {
+  .No {
     color: red;
     text-align: left;
   }
@@ -367,7 +375,8 @@ tr:nth-child(even):hover{
   padding: 20px;
   border: 1px solid #888;
   border-radius: 10px;
-  width: 50%; /* Could be more or less, depending on screen size */
+  width: 30%; /* Could be more or less, depending on screen size */
+  height: 50%;
 }
 
 /* The Close Button */
