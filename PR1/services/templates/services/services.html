@@ -1,0 +1,160 @@
+{% extends "home_/base.html"%}
+{% load crispy_forms_tags%}
+{% block content %}
+    <div class = "actionpage">
+        <div class="action-header">
+
+            <button class = 'btn-active' id = "create-service" style = "width: 200px;">Create New Service</button>
+            <input type = "text" placeholder = "Search"id = 'srch' />
+        </div>
+        <table>
+            <tr id="Grid">
+                <th>Service ID:</th>
+                <th>Service Type:</th>
+                <th>Governorate:</th>
+                <th>District:</th>
+                <th>Sub-District:</th>
+                <th>Village/Neighborhood:</th>
+                <th>Start Date:</th>
+                <th>End Date:</th>
+                <th>Delete:</th>
+            </tr>
+
+        </table>
+        <div class = 'messages-container'>
+            {% if messages %}
+                {% for message in messages %}
+                    <p class = "{{message.tags}}">{{message}}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div id="myModal" class="modal">
+            <div class="modal-content"  style = "
+                margin-top: 2%;
+                width: 50%;
+                height: 85%;
+                ">
+                <span class="close">&times;</span>
+                <form method = 'POST' id = "ServiceCreationForm" style = "
+                    margin-top: 2%;
+                    margin-left: 2%;
+                    width: 80%;
+                    border-radius: 0px;
+                    box-shadow: none;
+                ">
+                    {% csrf_token %}
+                    <fieldset class = 'form-group'>
+                        <legend class = 'legend-basic' id = "service-legend">Create New Service</legend>
+                        {{form|crispy}}
+                        <div class = 'form-group'>
+                            <button class = 'btn-active' type = 'submit' id = 'submission'>Submit</button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+$(document).ready(function(){
+
+            var submission_method = 0;
+            var uid;
+            $('#srch').keyup(function(){
+                search_table($(this).val());
+            });
+
+            function search_table(value){
+                $('.table-row').each(function(){
+        
+                $(this).each(function(){
+                    if($(this).text().toLocaleLowerCase().indexOf(value.toLocaleLowerCase()) >= 0){ $(this).show();}
+                    else{$(this).hide();}
+                    });
+                });
+            }
+
+            $.getJSON('/services/GetAllServices/', function(data){
+                for(var i=0; i < data.length; i++){                
+                   $('#Grid').after("<tr class = ' table-row' id = '"+data[i].service_id+"''><td>"+data[i].service_id+"</td><td>"+data[i].service_type+"</td><td>"+data[i].governorate+"</td><td>"+data[i].district+"</td><td>"+data[i].sub_district+"</td><td>"+data[i].village_neighborhood+"</td><td>"+data[i].start_date.toString()+"</td><td>"+data[i].end_date.toString()+"</td><td><a href='/services/DeleteService/"+data[i].service_id+"'>Delete</a></td></tr>");
+                }
+
+                $('.table-row').click(function(){
+                    $('#myModal').show();
+                    submission_method = 1;
+                    var row_id = $(this).attr('id');
+                    $('#service-legend').text('Edit Service');
+                    $.getJSON("/services/GetServiceByID/" + row_id, function(data1){
+                        $('#id_service_type').prepend("<option value = '"+data1.service_type+"' selected hidden>"+data1.service_type+"</option>");
+                        $('#id_service_description').val(data1.service_description);
+                        $('#id_governorate').val(data1.governorate);
+                        $('#id_district').val(data1.district);
+                        $('#id_sub_district').val( data1.sub_district);
+                        $('#id_village_neighborhood').val(data1.village_neighborhood);
+                        $('#id_start-date').val(data1.start_date);
+                        $('#id_end_date').val(data1.end_date);
+                        $('#id_role').prepend("<option value = '"+data1.role+"' selected hidden>"+data1.role+"</option>");
+                        uid = data1.service_id;
+                    });
+                });
+            });
+
+            $('#create-service').click(function(){
+                $('#myModal').show();
+            });
+
+
+          $('.close').click(function(){
+                $('#myModal').hide();
+                submission_method = 0;
+                $('#id_service_type').prepend("<option value = '"+data1.service_type+"' selected hidden>"+data1.service_type+"</option>");
+                $('#id_service_description').val('');
+                $('#id_governorate').val('');
+                $('#id_district').val('');
+                $('#id_sub_district').val('');
+                $('#id_village_neighborhood').val('');
+                $('#id_start-date').val('');
+                $('#id_end_date').val('');
+                $('#id_role').prepend("<option value = ' ' selected hidden> </option>");
+            });
+
+            $('#ServiceCreationForm').submit(function(event){
+                event.preventDefault();
+                if(submission_method == 0){
+                    //create new service
+                    $.ajax({
+                        url: "/services/new_Service/",
+                        type: "POST",
+                        data: $(this).serialize(),
+                        success: function(response){
+                            alert('New service is successfully created... :)');
+                            submission_method = 0;
+                            window.location.reload();
+                        },
+                        error: function(xhr, status, error){
+                            alert('Error while creating service... :(');
+                            submission_method = 0;
+                        }
+                    });
+                }
+                else if(submission_method == 1){
+                    //update current service
+                    $.ajax({
+                        url: "/services/UpdateService/"+ uid,
+                        type: "POST",
+                        data: $(this).serialize(),
+                        success: function(response){
+                            alert('Service is successfully updated... :)');
+                            submission_method = 0;
+                            window.location.reload();
+                        },
+                        error: function(xhr, status, error){
+                            alert('Error while updating service... :(');
+                            submission_method = 0;
+                        }
+                    });
+                }
+            });
+
+        });
+    </script>
+    {% endblock %}

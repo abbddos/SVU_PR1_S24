@@ -17,7 +17,7 @@
         </a>
         {% endif %}
         {% if prf.role == 'Team Leader' or prf.role == 'Admin'%}
-        <a href="#">
+        <a href="{% url 'all_services' %}">
             <div class = 'part-container'> 
                 <div class = 'image-container'>
                     <img class = 'part-image' src = "{% static 'home_/images/sarc-services.jpg'%}"/>

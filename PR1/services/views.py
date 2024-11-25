@@ -6,12 +6,18 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Service
 from .serializers import ServiceSerializer
+from .forms import ServiceForm
 from django.http import FileResponse
 import pandas as pd
 
+# Web Views...
+
+@login_required 
+def Services(request):
+    return render(request, 'services/services.html', {'form': ServiceForm()})
+
 
 # API Views
-
 
 @api_view(['GET'])
 def GetAllServices(request):
@@ -41,7 +47,7 @@ def CreateService(request):
         return Response(serializer.errors, status=400)
 
 
-@api_view(['PUT'])
+@api_view(['POST'])
 def UpdateService(request, sid):
     try:
         sr = Service.objects.get(service_id = sid)
@@ -50,13 +56,13 @@ def UpdateService(request, sid):
 
     serializer = ServiceSerializer(sr, data = request.data)
     if serializer.is_valid():
-        seralizer.save()
+        serializer.save()
         return Response(serializer.data, status=201)
     else:
         return Response(serializer.errors, status=400)
 
 
-@api_view(['DELETE'])
+@api_view(['Get'])
 def DeleteService(request, sid):
     try:
         sr = Service.objects.get(service_id = sid)
@@ -64,4 +70,4 @@ def DeleteService(request, sid):
         return Response(status=404) 
 
     sr.delete()
-    return Response(status=201)
+    return redirect('all_services')
