@@ -26,6 +26,8 @@ class Beneficiary(models.Model):
         ('Resident', 'Resident')
     ], null = False, blank = False)
 
+    beneficiary_pic = models.ImageField(null = True, blank = True, upload_to = "images/")
+
     householod_size = models.IntegerField(default = 1, null = False, blank = False)
     disability_in_household = models.CharField(max_length = 3, choices = [('Yes','Yes'),('No','No')], default = 'No', null = False, blank = False)
     disability_type = models.CharField(max_length = 25, choices = [

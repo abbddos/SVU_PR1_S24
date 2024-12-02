@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
+from django.conf import settings 
+from django.conf.urls.static import static 
 from login import views as login_views
 from admin_ import views as admin_views
 from home_ import views as home_views
@@ -41,4 +43,4 @@ urlpatterns = [
     path('activities/', include('activities.urls')),
     path('beneficiaries/', include('beneficiaries.urls')),
     path('services/', include('services.urls'))
-]
+] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
