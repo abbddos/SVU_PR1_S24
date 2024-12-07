@@ -1,0 +1,181 @@
+{% extends "home_/base.html"%}
+{% load crispy_forms_tags%}
+{% block content %}
+{% load static %}
+    <div class = "actionpage">
+        <div class="action-header">
+
+            <button class = 'btn-active' id = "create-beneficiary" style = "width: 200px;">Create New Beneficiary</button>
+            <input type = "text" placeholder = "Search"id = 'srch' />
+        </div>
+        <div class = "action-header" id="beneficiaries-table" style="display: none;">
+            <button class = 'btn-clear' id = "clear-search" style = "width: 200px;">Clear Search</button>
+            <table>
+                <tr id="Grid">
+                    <th>Beneficiary ID:</th>
+                    <th>First Name:</th>
+                    <th>Middle Name:</th>
+                    <th>Last Name:</th>
+                    <th>Date of Birth:</th>
+                    <th>Place of Birth:</th>
+                    <th>Sex:</th>
+                    <th>National Identifier:</th>
+                    <th>National Identifier Number:</th>
+                    <th>Delete:</th>
+                    <th>Print ID:</th>
+                </tr>
+            </table>
+        </div>
+        
+        <div class = 'messages-container'>
+            {% if messages %}
+                {% for message in messages %}
+                    <p class = "{{message.tags}}">{{message}}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <form method = 'POST' id = "BeneficiaryCreationForm" style = "
+                    margin-top: 2%;
+                    margin-left: 2%;
+                    padding-top: 30px;
+                    width: 80%;
+                    height: 100%;
+                    border-radius: 0px;
+                    box-shadow: none;
+                " enctype="multipart/form-data">
+                    {% csrf_token %}
+            <fieldset class = 'form-group'>
+                <legend class = 'legend-basic' id = "service-legend">Create New Beneficiary</legend>
+                <img src = "{% static 'home_/images/default_pic.jpg'%}" class = 'ben-pic'/>
+                    {{form|crispy}}
+                <div class = 'form-group'>
+                    <button class = 'btn-active' type = 'submit' id = 'submission'>Submit</button>
+                    <button class = 'btn-clear' id = 'form-clear'>Clear</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <script>
+$(document).ready(function(){
+
+            var submission_method = 0;
+            var uid;
+            $('#srch').keyup(function(){
+                search_table($(this).val());
+            });
+
+            function search_table(value){
+                $('.table-row').each(function(){
+        
+                $(this).each(function(){
+                    if($(this).text().toLocaleLowerCase().indexOf(value.toLocaleLowerCase()) == 0){
+                        $('#beneficiaries-table').hide();
+                    }
+                    else if($(this).text().toLocaleLowerCase().indexOf(value.toLocaleLowerCase()) >= 0){ 
+                        $('#beneficiaries-table').show();
+                        $(this).show();
+                    }
+                    else{
+                        $(this).hide();
+                    }
+                    });
+                });
+            }
+
+            $("#clear-search").click(function(){
+                $('#beneficiaries-table').hide();
+            });
+
+            $.getJSON('/beneficiaries/GetAllBeneficiaries/', function(data){
+                for(var i=0; i < data.length; i++){                
+                   $('#Grid').after("<tr class = ' table-row' id = '"+data[i].beneficiary_id+"''><td>"+data[i].beneficiary_id+"</td><td>"+data[i].first_name+"</td><td>"+data[i].middle_name+"</td><td>"+data[i].last_name+"</td><td>"+data[i].date_of_birth.toString()+"</td><td>"+data[i].place_of_birth+"</td><td>"+data[i].sex+"</td><td>"+data[i].national_identifier_type+"</td><td>"+data[i].national_identifier_number+"</td><td><a href='/beneficiaries/DeleteBeneficiary/"+data[i].beneficiary_id+"'>Delete</a></td><td><a href = '/beneficiaries/PrintID/"+data[i].beneficiary_id+"'>Print ID</a></td></tr>");
+                }
+
+                $('.table-row').click(function(){
+                    $('#myModal').show();
+                    submission_method = 1;
+                    var row_id = $(this).attr('id');
+                    $('#service-legend').text('Edit Beneficiary');
+                    $.getJSON("/beneficiaries/GetBeneficiaryByID/" + row_id, function(data1){
+
+                        $('.ben-pic').attr('src',data1.beneficiary_pic);
+                        $('#id_first_name').val(data1.first_name);
+                        $('#id_middle_name').val(data1.middle_name);
+                        $('#id_last_name').val(data1.last_name);
+                        $('#id_date_of_birth').val(data1.date_of_birth);
+                        $('#id_place_of_birth').val(data1.place_of_birth);
+                        $('#id_sex').val(data1.sex);
+                        $('#id_national_identifier_type').prepend("<option value = '"+data1.national_identifier_type+"' selected hidden>"+data1.national_identifier_type+"</option>");
+                        $('#id_national_identifier_number').val(data1.national_identifier_number);
+                        $('#id_contact_number').val(data1.contact_number);
+                        $('#id_current_address').val(data1.current_address);
+                        $('#id_displacement_status').prepend("<option value = '"+data1.displacement_status+"' selected hidden>"+data1.dispacement_status+"</option>");
+                        $('#id_beneficiary_pic').attr('value', data1.beneficiary_pic);
+                        $('#id_household_size').val(data1.household_size);
+                        $('#id_disability_in_household').prepend("<option value = '"+data1.disability_in_household+"' selected hidden>"+data1.disability_in_household+"</option>");
+                        $('#id_disability_type').prepend("<option value = '"+data1.disability_type+"' selected hidden>"+data1.disability_type+"</option>");
+                        $('#id_elders_in_household').prepend("<option value = '"+data1.elders_in_household+"' selected hidden>"+data1.elders_in_household+"</option>");
+                        $('#id_infants_in_household').prepend("<option value = '"+data1.infants_in_household+"' selected hidden>"+data1.infants_in_household+"</option>");
+                        $('#id_occupation').val(data1.occupation);
+                        $('#id_education').prepend("<option value = '"+data1.education+"' selected hidden>"+data1.education+"</option>");
+
+                        uid = data1.beneficiary_id;
+                    });
+                });
+            });
+
+
+            $('#BeneficiaryCreationForm').submit(function(event){
+                event.preventDefault();
+                var formdata = new FormData(this);
+                if(submission_method == 0){
+                    //create new service
+                    $.ajax({
+                        url: "/beneficiaries/new_Beneficiary/",
+                        type: "POST",
+                        data: formdata,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function(response){
+                            alert('New beneficiary is successfully created... :)');
+                            submission_method = 0;
+                            window.location.reload();
+                        },
+                        error: function(xhr, status, error){
+                            alert('Error while creating beneficiary... :(');
+                            submission_method = 0;
+                        }
+                    });
+                }
+                else if(submission_method == 1){
+                    //update current service
+                    $.ajax({
+                        url: "/beneficiaries/UpdateBeneficiary/"+ uid,
+                        type: "POST",
+                        data: formdata,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function(response){
+                            alert('Beneficiary is successfully updated... :)');
+                            submission_method = 0;
+                            window.location.reload();
+                        },
+                        error: function(xhr, status, error){
+                            alert('Error while updating beneficiary... :(');
+                            submission_method = 0;
+                        }
+                    });
+                }
+            });
+
+            $('#form-clear').click(function(event){
+                event.preventDefault();
+                window.location.reload();
+
+            });
+
+        });
+    </script>
+    {% endblock %}

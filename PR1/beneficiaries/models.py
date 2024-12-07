@@ -50,6 +50,7 @@ class Beneficiary(models.Model):
         ('Post Grad','Post Grad')
     ], default = 'None', null = False, blank = False)
 
+
     def __str__(self):
         return f'Beneficiary ID: {self.beneficiary_id} Name: {str(self.last_name).upper()}, {self.first_name} {self.middle_name}, Sex: {self.sex}, Status: {self.displacement_status}'
         

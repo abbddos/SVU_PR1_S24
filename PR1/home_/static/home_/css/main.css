@@ -263,6 +263,33 @@ body{
     margin: 5px;
   }
 
+  input[type = number]{
+    width: 80%;
+    height: 30px;
+    border: solid;
+    border-color: rgb(200,0,0);
+    border-width: 1px;
+    border-radius: 3px;
+    margin: 5px;
+  }
+
+  input[type="file"]::file-selector-button {
+    height: 35px;
+    width: 120px;
+    background-color: rgba(231, 231, 231, 0);
+    color: rgb(200,0,0);
+    border: solid 1px rgb(200,0,0);
+    border-radius: 4px;
+    transition: all 0.1s ease-out;
+  }
+
+  input[type="file"]::file-selector-button:hover {
+    background-color: rgb(200,0,0);
+    color: white;
+    border: solid 1px white;
+    transition: all 0.1s ease-out;
+  }
+
   textarea{
     width: 80%;
     border: solid;
@@ -302,6 +329,23 @@ li{
 
   .btn-active:hover{
     background-color: rgb(200,0,0);
+    color: white;
+    border: solid 1px white;
+    transition: all 0.1s ease-out;
+  }
+
+  .btn-clear{
+    height: 35px;
+    width: 120px;
+    background-color: rgba(231, 231, 231, 0);
+    color: rgb(0,0,0);
+    border: solid 1px rgb(0,0,0);
+    border-radius: 4px;
+    transition: all 0.1s ease-out;
+  }
+
+  .btn-clear:hover{
+    background-color: rgb(0,0,0);
     color: white;
     border: solid 1px white;
     transition: all 0.1s ease-out;
@@ -446,3 +490,7 @@ tr:nth-child(even):hover{
   color: blue;
 }
 
+.ben-pic{
+  width: 250px;
+  height: 250px;
+}

@@ -9,6 +9,7 @@ class BeneficiaryForm(ModelForm):
     class Meta:
         model = Beneficiary
         fields = '__all__'
+        exclude = ('qr_code',)
         widgets = {
             'date_of_birth': DateInput()
         }
