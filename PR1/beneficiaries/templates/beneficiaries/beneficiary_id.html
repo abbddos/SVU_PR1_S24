@@ -5,11 +5,11 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
   </head>
-  <body>
-    <div class="card">
+  <body class="card">
+    <div>
         <img src="{{ben.beneficiary_pic.url}}"  style="width:50%" class = 'ben-pic'>
-        <h3  class = 'bid' id = "{{ben.beneficiary_id}}">ID: {{ben.beneficiary_id}}</h3>
-        <h1 id = >{{ ben.first_name }} {{ben.middle_name}} {{ben.last_name}}</h1>
+        <h5  class = 'bid' id = "{{ben.beneficiary_id}}">ID: {{ben.beneficiary_id}}</h5>
+        <h3 id = >{{ ben.first_name }} {{ben.middle_name}} {{ben.last_name}}</h3>
         <table class = 'ben-info'>
             <tr>
                 <td>Date of Birth:</td>
@@ -43,7 +43,7 @@
     <style>
         .card {
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-        max-width: 500px;
+        max-width: 250px;
         margin: auto;
         text-align: center;
       }
@@ -54,15 +54,17 @@
       
       .ben-info{
         text-align: left;
+        font-size: 8px;
+        padding-left: 10px;
       }
       .title {
         color: grey;
-        font-size: 18px;
+        font-size: 9px;
       }
 
       td{
-        padding-right: 20px;
-        padding-bottom: 5px;
+        padding-right: 10px;
+        padding-bottom: 2px;
       }
       
       button {
@@ -75,32 +77,32 @@
         text-align: center;
         cursor: pointer;
         width: 100%;
-        font-size: 18px;
+        font-size: 8px;
       }
       
       a {
         text-decoration: none;
-        font-size: 22px;
+        font-size: 10px;
         color: black;
       }
 
     .sarc-contact{
-        font-size: 10px;
+        font-size: 4px;
         text-align: right;
         float: right;
         margin-top: 4%;
     }
 
     .sarc-icon{
-        width: 50px;
-        height: 50px;
+        width: 25px;
+        height: 25px;
         border-radius: 50%;
         float: left;
     }
 
     #qrcode{
       padding-top: 10px;
-      margin-left: 150px;
+      margin-left: 90px;
     }
     </style>
     <script>
@@ -113,8 +115,8 @@
             $("#qrcode").html("");
             var qrcode = new QRCode("qrcode", {
               text: qr_content,
-              width: 200,
-              height: 200,
+              width: 75,
+              height: 75,
             }
           ); 
         });
