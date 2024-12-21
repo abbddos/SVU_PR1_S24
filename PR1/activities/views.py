@@ -6,9 +6,21 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Activity
 from .serializers import ActivitySerializer
+from .forms import ActivityForm
 from django.http import FileResponse
+from beneficiaries.models import Beneficiary
 import pandas as pd
 
+@login_required
+def RegisterActivity(request):
+    return render(request, 'activities/register_activity.html', {'form': ActivityForm})
+
+@login_required
+def ViewHistory(request, bid):
+    bn = Beneficiary.objects.get(beneficiary_id = bid)
+    ac = Activity.objects.filter(beneficiary = bn)
+    services = set(activity.service for activity in ac)
+    return render(request, 'activities/history.html', {'ben': bn, 'ser': services})
 
 # API Views
 

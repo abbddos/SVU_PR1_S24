@@ -1,0 +1,102 @@
+{% extends "home_/base.html"%}
+{% load crispy_forms_tags%}
+{% block content %}
+{% load static %}
+
+<form method = 'POST' id = "ActivityRegisterForm" style = "
+                    margin-top: 5%;
+                    margin-left: 2%;
+                    padding-top: 30px;
+                    width: 50%;
+                    height: 100%;
+                    border-radius: 0px;
+                    box-shadow: none;
+                " enctype="multipart/form-data">
+                    {% csrf_token %}
+    <fieldset class = 'form-group'>
+        <legend class = 'legend-basic' id = "service-legend">Service Delivery</legend>
+            {{form|crispy}}
+        <div class = 'form-group'>
+            <button class = 'btn-active' type = 'submit' id = 'submission'>Submit</button>
+            <button class = 'btn-clear' id = 'form-clear'>Clear</button>
+        </div>
+    </fieldset>
+</form>
+<script>
+    $(document).ready(function(){
+        $('#ActivityRegisterForm').submit(function(event){
+            event.preventDefault();
+            $.getJSON("/services/GetServiceByID/"+$('#id_service').val(), function(data1){
+                $.getJSON("/beneficiaries/GetBeneficiaryByID/"+$('#id_beneficiary').val(), function(data2){
+                    printout(data1, data2);
+                });
+            });
+
+  
+
+        });
+
+        $('#form-clear').click(function(event){
+            event.preventDefault();
+            window.location.reload();
+        });
+
+        var csrftoken = '{{ csrf_token }}'
+
+        function printout(data1, data2){
+            var activity = {
+                "service":{
+                    "service_id": data1.service_id,
+                    "service_type": data1.service_type,
+                    "governorate": data1.governorate,
+                    "district": data1.district,
+                    "sub_district": data1.sub_district,
+                    "village_neighborhood": data1.village_neighborhood,
+                    "start_date": data1.start_date,
+                    "end_date": data1.end_date
+                },
+                "beneficiary":{
+                    "beneficiary_id": data2.beneficiary_id,
+                    "first_name": data2.first_name,
+                    "middle_name": data2.middle_name,
+                    "last_name": data2.last_name,
+                    "date_of_birth": data2.date_of_birth,
+                    "place_of_birth": data2.place_of_birth,
+                    "sex": data2.sex,
+                    "national_identifier_type": data2.national_identifier_type,
+                    "national_identifier_number": data2.national_identifier_number,
+                    "contact_number": data2.contact_number,
+                    "current_address": data2.current_address,
+                    "displacement_status": data2.displacement_status,
+                    "householod_size": data2.householod_size,
+                    "disability_in_household": data2.disability_in_household,
+                    "disability_type": data2.disability_type,
+                    "elders_in_household": data2.elders_in_household,
+                    "infants_in_household": data2.infants_in_household,
+                    "occupation": data2.occupation,
+                    "education": data2.education
+                }
+            }
+            $.ajax({
+                        url: "/activities/new_activity/",
+                        type: "POST",
+                        data: JSON.stringify(activity),
+                        contentType: "application/json", 
+                        headers: {
+                                'X-CSRFToken': csrftoken 
+                        },
+                        success: function(response){
+                            alert('New Record is successfully created... :)');
+                            submission_method = 0;
+                            window.location.reload();
+                        },
+                        error: function(xhr, status, error){
+                            alert('Error while creating record... :(');
+                            submission_method = 0;
+                        }
+                    });
+        }
+    });
+</script>
+
+{%endblock%}

@@ -49,6 +49,7 @@
     <div id="editor"></div>
     <div class = 'printID'>
       <button id="printPDF" class = 'btn-active'>Print to PDF</button>
+      <a href = "{% url 'beneficiaries_register'%}"><button class = 'btn-clear'>Back to Register</button></a>
     </div>
     </body>
     <style>
@@ -118,7 +119,27 @@
         border: solid 1px white;
         transition: all 0.1s ease-out;
       }
+
+      .btn-clear{
+        margin-top: 2%;
+        height: 35px;
+        width: 120px;
+        background-color: rgba(231, 231, 231, 0);
+        color: rgb(0,0,0);
+        border: solid 1px rgb(0,0,0);
+        border-radius: 4px;
+        transition: all 0.1s ease-out;
+      }
+
+      .btn-clear:hover{
+        background-color: rgb(0,0,0);
+        color: white;
+        border: solid 1px white;
+        transition: all 0.1s ease-out;
+      }
+
       a {
+        margin-top: 5%;
         text-decoration: none;
         font-size: 10px;
         color: black;
@@ -140,7 +161,7 @@
 
     #qrcode{
       padding-top: 10px;
-      margin-left: 90px;
+      margin-left: 80px;
     }
     </style>
     <script>
@@ -152,9 +173,9 @@
             qr_content = data.first_name+"_"+data.middle_name+"_"+data.last_name+"_"+data.beneficiary_id.toString(); 
             $("#qrcode").html("");
             var qrcode = new QRCode("qrcode", {
-              text: qr_content,
-              width: 75,
-              height: 75,
+              text: data.beneficiary_id.toString(),
+              width: 90,
+              height: 90,
             }
           ); 
         });

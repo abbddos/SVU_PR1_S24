@@ -1,0 +1,69 @@
+{% extends "home_/base.html"%}
+{% load crispy_forms_tags%}
+{% block content %}
+{% load static %}
+<div class = "ben_section">
+    <img src="{{ben.beneficiary_pic.url}}"  class = 'ben-pic'>
+    <h5  class = 'bid' id = "{{ben.beneficiary_id}}">ID: {{ben.beneficiary_id}}</h5>
+    <h3 id = >{{ ben.first_name }} {{ben.middle_name}} {{ben.last_name}}</h3>
+    <table class = 'ben-info'>
+        <tr>
+            <td>Date of Birth:</td>
+            <td>{{ben.date_of_birth}}</td>
+            <td>Place of Birth:</td>
+            <td>{{ben.place_of_birth}}</td>
+        </tr>
+        <tr>
+            <td>Sex:</td>
+            <td>{{ben.sex}}</td>
+            <td>Household Size:</td>
+            <td>{{ben.householod_size}}</td>
+        </tr>
+        <tr>
+            <td>Displacement Status:</td>
+            <td>{{ben.displacement_status}}</td>
+            <td>Contact:</td>
+            <td>{{ben.contact_number}}</td>
+        </tr>
+        <tr>
+            <td>Current Address:</td>
+            <td>{{ben.current_address}}</td>
+        </tr>
+        <tr>
+            <td>National Identifier:</td>
+            <td>{{ben.national_identifier_type}}</td>
+            <td>National Identifier Number:</td>
+            <td>{{ben.national_identifier_number}}</td>
+        </tr>
+    </table>
+    <a href = "{% url 'beneficiaries_register'%}"><button class = 'btn-clear'>Back to Register</button></a>
+    <div class = "services">
+        <table>
+            <tr>
+                <th>Service ID:</th>
+                <th>Service Type:</th>
+                <th>Governorate:</th>
+                <th>District:</th>
+                <th>Sub-District:</th>
+                <th>Village/Neighborhood:</th>
+                <th>Start Date:</th>
+                <th>End Date:</th>
+            </tr>
+            {% for s in ser %}
+                <tr>
+                    <td>{{s.service_id}}</td>
+                    <td>{{s.service_type}}</td>
+                    <td>{{s.governorate}}</td>
+                    <td>{{s.district}}</td>
+                    <td>{{s.sub_district}}</td>
+                    <td>{{s.village_neighborhood}}</td>
+                    <td>{{s.start_date}}</td>
+                    <td>{{s.end_date}}</td>
+                </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+    </div>
+
+{%endblock%}

@@ -22,7 +22,7 @@ class Service(models.Model):
     # LH:  LiveliHoods
     # CD:  Capacity Development.
     
-    service_description = models.TextField()
+    service_description = models.TextField(null = True, blank = True)
     
     governorate =  models.CharField(max_length = 50, null = False, blank = False)
     district = models.CharField(max_length = 50, null = False, blank = False)
