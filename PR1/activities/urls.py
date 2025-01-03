@@ -8,5 +8,6 @@ urlpatterns = [
     path('UpdateActivity/<aid>', views.UpdateActivity, name='UpdateActivity'),
     path('DeleteActivity/<aid>', views.DeleteActivity, name='DeleteActivity'),
     path('register_activity/', views.RegisterActivity, name = 'register_activity'),
-    path('history/<bid>', views.ViewHistory, name = 'history')
+    path('history/<bid>', views.ViewHistory, name = 'history'),
+    path('reports', views.Reports, name='reports')
 ]

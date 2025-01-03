@@ -1,0 +1,23 @@
+{% extends "home_/base.html"%}
+{% load crispy_forms_tags%}
+{% block content %}
+{% load static %}
+
+<form method = 'POST' id = "ReportsForm" style = "
+                    margin-top: 5%;
+                    margin-left: 2%;
+                    padding-top: 30px;
+                    width: 50%;
+                    height: 100%;
+                    border-radius: 0px;
+                    box-shadow: none;
+                " enctype="multipart/form-data">
+    {% csrf_token %}
+    <fieldset class = 'form-group'>
+        <legend class = 'legend-basic' id = "service-legend">Reports</legend>
+            {{form|crispy}}
+        <div class = 'form-group'>
+            <button class = 'btn-active' type = 'submit' id = 'submission'>Submit</button>
+        </div>
+    </fieldset>
+{%endblock%}
