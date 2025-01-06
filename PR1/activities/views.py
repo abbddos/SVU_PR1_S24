@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
@@ -10,23 +11,34 @@ from .forms import ActivityForm, EventForm
 from django.http import FileResponse
 from beneficiaries.models import Beneficiary
 import pandas as pd
+import requests
+from io import BytesIO
+from datetime import datetime
 
 
-def GenerateWs(request, view_name, start_date, end_date, kwargs = None):
-    try:
-        api_url = request.build_absolute_uri(reverse(view_name, kwargs=kwargs))
-        response = requests.get(api_url)
-        response.raise_for_status() 
-        if 'application/json' in response.headers['Content-Type']:
-            data = response.json()
-        else:
-            raise ValueError("API response is not in JSON format.")
+def GetFourWsData(start_date, end_date):
+    response = requests.get("http://127.0.0.1:8000/activities/GetAllActivities/")
+    response.raise_for_status()
+    if response.headers['Content-Type'] == 'application/json':
+        data = response.json()
+        df = pd.json_normalize(data)
+        df['service.start_date'] = pd.to_datetime(df['service.start_date']).dt.date
+        df['service.end_date'] = pd.to_datetime(df['service.end_date']).dt.date
 
-        df = pd.json_normalize(data, errors='ignore')
-        return df
-    except:
-        print(f"Error fetching data from internal API: {e}")
-        return None
+        df = df[df['service.start_date'] >= start_date]
+        df = df[df['service.end_date'] <= end_date]
+
+        grouped_df = df.groupby(['service.service_type','service.start_date', 'service.end_date','service.governorate', 'service.district', 'service.sub_district','service.village_neighborhood']).agg(
+                            Total_individuals = ('beneficiary.householod_size', 'sum'),
+                            Males=('beneficiary.sex', pd.NamedAgg(column='beneficiary.sex', aggfunc=lambda x: len(x[x == 'Male']))),
+                            Females=('beneficiary.sex', pd.NamedAgg(column='beneficiary.sex', aggfunc=lambda x: len(x[x == 'Female']))),
+                            Disabilities=('beneficiary.disability_in_household', pd.NamedAgg(column='beneficiary.disability_in_household', aggfunc=lambda x: len(x[x == 'Yes']))),
+                            Infants=('beneficiary.infants_in_household', pd.NamedAgg(column='beneficiary.infants_in_household', aggfunc=lambda x: len(x[x == 'Yes']))),
+                            Elders=('beneficiary.elders_in_household', pd.NamedAgg(column='beneficiary.elders_in_household', aggfunc=lambda x: len(x[x == 'Yes'])))
+                    )
+
+    return grouped_df
+
 
 @login_required
 def RegisterActivity(request):
@@ -48,7 +60,16 @@ def Reports(request):
             end_date = form.cleaned_data['end_date']
             report_type = form.cleaned_data['report_type']
             if report_type == '4Ws':
-                pass
+                df = GetFourWsData(start_date, end_date)
+                buffer = BytesIO()
+                df.to_excel(buffer, index=True)
+                filename = 'four_ws_data.xlsx'
+                response = HttpResponse(
+                    buffer.getvalue(), 
+                    content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                )
+                response['Content-Disposition'] = f'attachment; filename="{filename}"'
+                return response  
             elif report_type == 'infographic':
                 pass
             
