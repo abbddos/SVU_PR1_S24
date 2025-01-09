@@ -9,5 +9,6 @@ urlpatterns = [
     path('DeleteActivity/<aid>', views.DeleteActivity, name='DeleteActivity'),
     path('register_activity/', views.RegisterActivity, name = 'register_activity'),
     path('history/<bid>', views.ViewHistory, name = 'history'),
-    path('reports', views.Reports, name='reports')
+    path('reports', views.Reports, name='reports'),
+    path('infographic_report', views.InfogragphicReport, name = 'infographic-report')
 ]

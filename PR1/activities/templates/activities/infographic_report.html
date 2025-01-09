@@ -1,0 +1,254 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
+        <script type = "text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+        <script type = "text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.1.4/html2canvas.min.js"></script>
+        <link rel="icon" type="image/x-icon" href="{% static 'login/images/sarc-icon.jpg'%}">
+        <title>B.R.A.V.E.S</title>
+      </head>
+      <body id = 'page'>
+        <div class = 'top-ribbon'>
+            <img class = 'robbin-icon' src = "{% static 'login/images/sarc-icon.jpg'%}" />
+            <h1 class = 'ribbon-title'>Syrian Arab Red Crescent Infographic Report</h1>
+            <h1 class = 'ribbon-dates'>From: start date - to: end date</h1>
+        </div>
+        <div class = 'content'>
+            <table class = 'infographic-content'>
+                <tr>
+                    <td>
+                        <div>
+                            <img class = 'service-icon' src="{% static 'home_/images/population.jpg'%}" style = "height: 100px; width: 100px;"/>
+                            <h1 class = 'service-title'>Total Reach</h1>
+                        </div>
+                        <div class = 'section'>
+                            <h1 class = 'figure'>999</h1>
+                            <p class = 'caption'> individuals have benefited from all Syrian Arab Red Crescent services during the reporting period accross the country.</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style = "width: 33%;">
+                        <div>
+                            <img class = 'service-icon' src="{% static 'home_/images/gender_breakdown.jpg'%}" style = "height: 100px; width: 100px;"/>
+                            <h1 class = 'service-title'>Gender Breakdown</h1>
+                        </div>
+                        <div class = 'section'>
+                            <h1 class = 'figure' style = 'color: white;'>_</h1>
+                            <p class = 'caption'> The total of <span style="font-weight: bold;">555 Males</span> and <span style = "font-weight: bold;">444 Females</span> have benefited from Syrian Arab Red Crescent services accross the country during the reporting period.</p>
+                        </div>
+                    </td>
+                    <td style = "width: 33%;">
+                        <div>
+                            <img class = 'service-icon' src="{% static 'home_/images/disability.png'%}" style = "height: 100px; width: 100px;"/>
+                            <h1 class = 'service-title'>Disabilities</h1>
+                        </div>
+                        <div class = 'section'>
+                            <h1 class = 'figure'>111</h1>
+                            <p class = 'caption'> Disabled persons have benefited from special Sryian Arab Red Crescent services accross the country during the reporting period.</p>
+                        </div>
+                    </td>
+                    <td style = "width: 33%;">
+                        <div>
+                            <img class = 'service-icon' src="{% static 'home_/images/displacement.webp'%}" style = "height: 100px; width: 100px;"/>
+                            <h1 class = 'service-title'>Displacement</h1>
+                        </div>
+                        <div class = 'section'>
+                            <h1 class = 'figure' style = 'color: white;'>_</h1>
+                            <p class = 'caption'> The total of <span style="font-weight: bold;">444 Residents</span>, <span style = "font-weight: bold;">222 Returnees</span>, </p>
+                            <p class = 'caption'><span style = "font-weight: bold;">222 IDPs</span> and <span style = "font-weight: bold;">111 Refugees</span> have benefited from Syrian Arab Red Crescent services accross the country during the reporting period.</p>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class = 'content'>
+            <table class = 'infographic-content'>
+                <tr>
+                    <td>
+                        <div>
+                            <img class = 'service-icon' src="{% static 'home_/images/NFI.png'%}">
+                            <h1 class = 'service-title'>Non Food Items (NFI)</h1>
+                        </div>
+                        <div class = 'section'>
+                            <h1 class = 'figure'>999</h1>
+                            <p class = 'caption'> individuals have benefited from <span style = "font-weight: bold;">NFI</span> services during the reporting period</p>
+                        </div>
+                    <td>
+                        <div>
+                            <img class = 'service-icon' src="{% static 'home_/images/GFA.png'%}">
+                            <h1 class = 'service-title'>General Food Assistance (GFA)</h1>
+                        </div>
+                        <div class = 'section'>
+                            <h1 class = 'figure'>999</h1>
+                            <p class = 'caption'> individuals have benefited from <span style = "font-weight: bold;">GFA</span>  services during the reporting period</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div>
+                            <img class = 'service-icon' src="{% static 'home_/images/WASH.png'%}">
+                            <h1 class = 'service-title'>Water, Health and Sanitation (WASH)</h1>
+                        </div>
+                        <div class = 'section'>
+                            <h1 class = 'figure'>999</h1>
+                            <p class = 'caption'> individuals have benefited from <span style = "font-weight: bold;">WASH</span>  services during the reporting period</p>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <img class = 'service-icon' src="{% static 'home_/images/PSS.png'%}">
+                            <h1 class = 'service-title'>Psycho-Social Support (PSS)</h1>
+                        </div>
+                        <div class = 'section'>
+                            <h1 class = 'figure'>999</h1>
+                            <p class = 'caption'> individuals have benefited from <span style = "font-weight: bold;">PSS</span>  services during the reporting period</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div>
+                            <img class = 'service-icon' src="{% static 'home_/images/LH.png'%}">
+                            <h1 class = 'service-title'>Livelihoods (LH)</h1>
+                        </div>
+                        <div class = 'section'>
+                            <h1 class = 'figure'>999</h1>
+                            <p class = 'caption'> individuals have benefited from <span style = "font-weight: bold;">LH</span>  services during the reporting period</p>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <img class = 'service-icon' src="{% static 'home_/images/CD.png'%}">
+                            <h1 class = 'service-title'>Capacity Development (CD)</h1>
+                        </div>
+                        <div class = 'section'>
+                            <h1 class = 'figure'>999</h1>
+                            <p class = 'caption'> individuals have benefited from <span style = "font-weight: bold;">CD</span>  services during the reporting period</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div>
+                            <img class = 'service-icon' src="{% static 'home_/images/LEG.png'%}">
+                            <h1 class = 'service-title'>Legal Services (LEG)</h1>
+                        </div>
+                        <div>
+                            <h1 class = 'figure'>999</h1>
+                            <p class = 'caption'> individuals have benefited from <span style = "font-weight: bold;">LEG</span>  services during the reporting period</p>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class = 'bottom-ribbon'></div>
+      </body>
+      <style>
+        body{
+            margin: 0px;
+            padding: 0px;
+            background-color: rgb(231, 231, 231);
+        }
+        .top-ribbon{
+            background-color: rgb(200, 0, 0);
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+        }
+
+        .robbin-icon{
+            width: 150px;
+            height: 150px;
+            border-radius: 75px;
+            float: left;
+            margin-right: 50px;
+        }
+
+
+        .ribbon-title{
+            padding-top: 10px;
+            font-family: "Arial Black", Gadget, sans-serif;
+            font-weight: bolder;
+            color: white;
+        }
+
+        .ribbon-dates{
+            font-family: "Arial Black", Gadget, sans-serif;
+            font-weight: bolder;
+            color: white;
+        }
+
+        .content{
+            padding-top: 2%;
+            padding-left: 5%;
+        }
+
+        .infographic-content{
+            background-color: white;
+            width: 95%;
+            border-collapse: collapse;
+            margin-bottom: 5px;
+        }
+
+        td{
+            border-bottom:5pt solid rgb(2, 23, 83);
+            border-right: 10pt solid white;
+            border-left: 10pt solid white;
+        }
+
+        .service-icon{
+            margin-top: 20px;
+            margin-left: 20px;
+            float: left;
+            margin-right: 10px;
+        }
+
+        .service-title{
+            font-family: "Arial Black", Gadget, sans-serif;
+            font-weight: bolder;
+            color: rgb(2, 23, 83);
+            padding-top: 40px;
+            padding-left: 10px;
+        }
+
+        .section{
+            float: left;
+        }
+
+        .figure{
+            font-family: "Arial Black", Gadget, sans-serif;
+            font-weight: bolder;
+            color: black;
+        }
+
+        .caption{
+            font-size: 22px;
+        }
+
+        .bottom-ribbon{
+            margin-top: 75px;
+            width: 100%;
+            height: 50px;
+            background-color: rgb(200,0,0);
+        }
+      </style>
+      <script>
+        $(document).ready(function(){
+           
+            const div = document.getElementById('page');
+ 
+            html2canvas(div).then(canvas => {
+            const imgData = canvas.toDataURL('image/png');
+
+            const doc = new jsPDF();
+
+            doc.addImage(imgData, 'JPEG',  0,25, 215, 200);
+            doc.save('SARC Flash Report.pdf');
+            });
+        });
+      </script>
+</html>

@@ -70,12 +70,17 @@ def Reports(request):
                 )
                 response['Content-Disposition'] = f'attachment; filename="{filename}"'
                 return response  
-            elif report_type == 'infographic':
-                pass
+            elif report_type == 'Infographic':
+                return redirect('infographic-report')
             
     else:
         form = EventForm()
     return render(request, 'activities/reports.html', {'form': form})
+
+
+@login_required
+def InfogragphicReport(request):
+    return render(request, 'activities/infographic_report.html')
 
 
 
@@ -111,7 +116,7 @@ def CreateActivity(request):
         return Response(serializer.errors, status=400)
 
 
-@api_view(['PUT'])
+@api_view(['POST'])
 def UpdateActivity(request, aid):
     try:
         ac = Activity.objects.get(activity_id = aid)
@@ -126,7 +131,7 @@ def UpdateActivity(request, aid):
         return Response(serializer.errors, status=400)
 
 
-@api_view(['DELETE'])
+@api_view(['GET'])
 def DeleteActivity(request, aid):
     try:
         ac = Activity.objects.get(activity_id = aid)
@@ -134,4 +139,4 @@ def DeleteActivity(request, aid):
         return Response(status=404) 
 
     ac.delete()
-    return Response(status=201)
+    return redirect('reports')
