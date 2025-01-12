@@ -13,7 +13,7 @@
         <div class = 'top-ribbon'>
             <img class = 'robbin-icon' src = "{% static 'login/images/sarc-icon.jpg'%}" />
             <h1 class = 'ribbon-title'>Syrian Arab Red Crescent Infographic Report</h1>
-            <h1 class = 'ribbon-dates'>From: start date - to: end date</h1>
+            <h2 class = 'ribbon-dates'>From: {{start_date}} - to: {{end_date}}</h2>
         </div>
         <div class = 'content'>
             <table class = 'infographic-content'>
@@ -24,8 +24,18 @@
                             <h1 class = 'service-title'>Total Reach</h1>
                         </div>
                         <div class = 'section'>
-                            <h1 class = 'figure'>999</h1>
-                            <p class = 'caption'> individuals have benefited from all Syrian Arab Red Crescent services during the reporting period accross the country.</p>
+                            <h1 class = 'figure'>{{total_reach}}</h1>
+                            <p class = 'caption'> Indiduals have benefited from all Syrian Arab Red Crescent services during the reporting period accross the country.</p>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <img class = 'service-icon' src="{% static 'home_/images/household.png'%}" style = "height: 100px; width: 100px;"/>
+                            <h1 class = 'service-title'>Households</h1>
+                        </div>
+                        <div class = 'section'>
+                            <h1 class = 'figure'>{{household}}</h1>
+                            <p class = 'caption'> Households have benefited from all Syrian Arab Red Crescent services during the reporting period accross the country.</p>
                         </div>
                     </td>
                 </tr>
@@ -37,7 +47,7 @@
                         </div>
                         <div class = 'section'>
                             <h1 class = 'figure' style = 'color: white;'>_</h1>
-                            <p class = 'caption'> The total of <span style="font-weight: bold;">555 Males</span> and <span style = "font-weight: bold;">444 Females</span> have benefited from Syrian Arab Red Crescent services accross the country during the reporting period.</p>
+                            <p class = 'caption'> The total of <span style="font-weight: bold;">{{males}} Male</span> and <span style = "font-weight: bold;">{{females}} Female</span> headed households have benefited from Syrian Arab Red Crescent services accross the country during the reporting period.</p>
                         </div>
                     </td>
                     <td style = "width: 33%;">
@@ -46,8 +56,8 @@
                             <h1 class = 'service-title'>Disabilities</h1>
                         </div>
                         <div class = 'section'>
-                            <h1 class = 'figure'>111</h1>
-                            <p class = 'caption'> Disabled persons have benefited from special Sryian Arab Red Crescent services accross the country during the reporting period.</p>
+                            <h1 class = 'figure'>{{disabled}}</h1>
+                            <p class = 'caption'> Households with disabled persons have benefited from special Sryian Arab Red Crescent services accross the country during the reporting period.</p>
                         </div>
                     </td>
                     <td style = "width: 33%;">
@@ -57,8 +67,8 @@
                         </div>
                         <div class = 'section'>
                             <h1 class = 'figure' style = 'color: white;'>_</h1>
-                            <p class = 'caption'> The total of <span style="font-weight: bold;">444 Residents</span>, <span style = "font-weight: bold;">222 Returnees</span>, </p>
-                            <p class = 'caption'><span style = "font-weight: bold;">222 IDPs</span> and <span style = "font-weight: bold;">111 Refugees</span> have benefited from Syrian Arab Red Crescent services accross the country during the reporting period.</p>
+                            <p class = 'caption'> The total of <span style="font-weight: bold;">{{residents}} Resident</span>, <span style = "font-weight: bold;">{{returnees}} Returnee</span>, </p>
+                            <p class = 'caption'><span style = "font-weight: bold;">{{idps}} IDP</span> and <span style = "font-weight: bold;">{{refugees}} Refugee</span> households have benefited from Syrian Arab Red Crescent services accross the country during the reporting period.</p>
                         </div>
                     </td>
                 </tr>
@@ -73,7 +83,7 @@
                             <h1 class = 'service-title'>Non Food Items (NFI)</h1>
                         </div>
                         <div class = 'section'>
-                            <h1 class = 'figure'>999</h1>
+                            <h1 class = 'figure'>{{nfi}}</h1>
                             <p class = 'caption'> individuals have benefited from <span style = "font-weight: bold;">NFI</span> services during the reporting period</p>
                         </div>
                     <td>
@@ -82,7 +92,7 @@
                             <h1 class = 'service-title'>General Food Assistance (GFA)</h1>
                         </div>
                         <div class = 'section'>
-                            <h1 class = 'figure'>999</h1>
+                            <h1 class = 'figure'>{{gfa}}</h1>
                             <p class = 'caption'> individuals have benefited from <span style = "font-weight: bold;">GFA</span>  services during the reporting period</p>
                         </div>
                     </td>
@@ -94,7 +104,7 @@
                             <h1 class = 'service-title'>Water, Health and Sanitation (WASH)</h1>
                         </div>
                         <div class = 'section'>
-                            <h1 class = 'figure'>999</h1>
+                            <h1 class = 'figure'>{{wash}}</h1>
                             <p class = 'caption'> individuals have benefited from <span style = "font-weight: bold;">WASH</span>  services during the reporting period</p>
                         </div>
                     </td>
@@ -104,7 +114,7 @@
                             <h1 class = 'service-title'>Psycho-Social Support (PSS)</h1>
                         </div>
                         <div class = 'section'>
-                            <h1 class = 'figure'>999</h1>
+                            <h1 class = 'figure'>{{pss}}</h1>
                             <p class = 'caption'> individuals have benefited from <span style = "font-weight: bold;">PSS</span>  services during the reporting period</p>
                         </div>
                     </td>
@@ -116,7 +126,7 @@
                             <h1 class = 'service-title'>Livelihoods (LH)</h1>
                         </div>
                         <div class = 'section'>
-                            <h1 class = 'figure'>999</h1>
+                            <h1 class = 'figure'>{{lh}}</h1>
                             <p class = 'caption'> individuals have benefited from <span style = "font-weight: bold;">LH</span>  services during the reporting period</p>
                         </div>
                     </td>
@@ -126,7 +136,7 @@
                             <h1 class = 'service-title'>Capacity Development (CD)</h1>
                         </div>
                         <div class = 'section'>
-                            <h1 class = 'figure'>999</h1>
+                            <h1 class = 'figure'>{{cd_}}</h1>
                             <p class = 'caption'> individuals have benefited from <span style = "font-weight: bold;">CD</span>  services during the reporting period</p>
                         </div>
                     </td>
@@ -138,7 +148,7 @@
                             <h1 class = 'service-title'>Legal Services (LEG)</h1>
                         </div>
                         <div>
-                            <h1 class = 'figure'>999</h1>
+                            <h1 class = 'figure'>{{leg}}</h1>
                             <p class = 'caption'> individuals have benefited from <span style = "font-weight: bold;">LEG</span>  services during the reporting period</p>
                         </div>
                     </td>

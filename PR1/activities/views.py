@@ -40,6 +40,73 @@ def GetFourWsData(start_date, end_date):
     return grouped_df
 
 
+def GetFlashReport(start_date, end_date):
+    response = requests.get("http://127.0.0.1:8000/activities/GetAllActivities/")
+    response.raise_for_status()
+    if response.headers['Content-Type'] == 'application/json':
+        data = response.json()
+        df = pd.json_normalize(data)
+        df['service.start_date'] = pd.to_datetime(df['service.start_date']).dt.date
+        df['service.end_date'] = pd.to_datetime(df['service.end_date']).dt.date
+
+        df = df[df['service.start_date'] >= start_date]
+        df = df[df['service.end_date'] <= end_date]
+
+    bens = df[['beneficiary.beneficiary_id', 'beneficiary.first_name',
+       'beneficiary.middle_name', 'beneficiary.last_name',
+       'beneficiary.date_of_birth', 'beneficiary.place_of_birth',
+       'beneficiary.sex', 'beneficiary.national_identifier_type',
+       'beneficiary.national_identifier_number', 'beneficiary.contact_number',
+       'beneficiary.current_address', 'beneficiary.displacement_status',
+       'beneficiary.beneficiary_pic', 'beneficiary.householod_size',
+       'beneficiary.disability_in_household', 'beneficiary.disability_type',
+       'beneficiary.elders_in_household', 'beneficiary.infants_in_household',
+       'beneficiary.occupation', 'beneficiary.education']].drop_duplicates()
+
+    total_reach = bens['beneficiary.householod_size'].sum()
+    household = bens.shape[0]
+    males = len(bens[bens['beneficiary.sex'] == 'Male'])
+    females = len(bens[bens['beneficiary.sex'] == 'Female'])
+    disabled = len(bens[bens['beneficiary.disability_in_household'] == 'Yes'])
+    residents = len(bens[bens['beneficiary.displacement_status'] == 'Resident'])
+    returnees = len(bens[bens['beneficiary.displacement_status'] == 'Returnee'])
+    refugees = len(bens[bens['beneficiary.displacement_status'] == 'Refugee'])
+    idps = len(bens[bens['beneficiary.displacement_status'] == 'IDP'])
+
+    services  = df[['service.service_type','beneficiary.householod_size']]
+
+    nfi = services[services['service.service_type'] == 'NFI']['beneficiary.householod_size'].sum()
+    gfa = services[services['service.service_type'] == 'GFA']['beneficiary.householod_size'].sum()
+    wash = services[services['service.service_type'] == 'WASH']['beneficiary.householod_size'].sum()
+    pss = services[services['service.service_type'] == 'PSS']['beneficiary.householod_size'].sum()
+    lh = services[services['service.service_type'] == 'LH']['beneficiary.householod_size'].sum()
+    cd_ = services[services['service.service_type'] == 'CD']['beneficiary.householod_size'].sum()
+    leg = services[services['service.service_type'] == 'LEG']['beneficiary.householod_size'].sum()
+
+    context = {
+        'total_reach': total_reach,
+        'household':household,
+        'males':males,
+        'females':females,
+        'disabled':disabled,
+        'residents':residents,
+        'returnees':returnees,
+        'refugees':refugees,
+        'idps':idps,
+        'nfi':nfi,
+        'gfa':gfa,
+        'wash':wash,
+        'pss':pss,
+        'lh':lh,
+        'cd_':cd_,
+        'leg':leg,
+        'start_date': start_date,
+        'end_date': end_date
+    }
+
+    return context
+
+
 @login_required
 def RegisterActivity(request):
     return render(request, 'activities/register_activity.html', {'form': ActivityForm})
@@ -71,7 +138,9 @@ def Reports(request):
                 response['Content-Disposition'] = f'attachment; filename="{filename}"'
                 return response  
             elif report_type == 'Infographic':
-                return redirect('infographic-report')
+                context = GetFlashReport(start_date, end_date)
+                return render(request, 'activities/infographic_report.html', context = context)
+
             
     else:
         form = EventForm()
