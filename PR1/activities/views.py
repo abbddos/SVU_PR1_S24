@@ -34,7 +34,11 @@ def GetFourWsData(start_date, end_date):
                             Females=('beneficiary.sex', pd.NamedAgg(column='beneficiary.sex', aggfunc=lambda x: len(x[x == 'Female']))),
                             Disabilities=('beneficiary.disability_in_household', pd.NamedAgg(column='beneficiary.disability_in_household', aggfunc=lambda x: len(x[x == 'Yes']))),
                             Infants=('beneficiary.infants_in_household', pd.NamedAgg(column='beneficiary.infants_in_household', aggfunc=lambda x: len(x[x == 'Yes']))),
-                            Elders=('beneficiary.elders_in_household', pd.NamedAgg(column='beneficiary.elders_in_household', aggfunc=lambda x: len(x[x == 'Yes'])))
+                            Elders=('beneficiary.elders_in_household', pd.NamedAgg(column='beneficiary.elders_in_household', aggfunc=lambda x: len(x[x == 'Yes']))),
+                            Residents = ('beneficiary.displacement_status', pd.NamedAgg(column = 'beneficiary.displacement_staus', aggfunc = lambda x: len(x[x=='Resident']))),
+                            Refugees = ('beneficiary.displacement_status', pd.NamedAgg(column = 'beneficiary.displacement_staus', aggfunc = lambda x: len(x[x=='Refugee']))),
+                            Returnees = ('beneficiary.displacement_status', pd.NamedAgg(column = 'beneficiary.displacement_staus', aggfunc = lambda x: len(x[x=='Returnee']))),
+                            IDPs = ('beneficiary.displacement_status', pd.NamedAgg(column = 'beneficiary.displacement_staus', aggfunc = lambda x: len(x[x=='IDP']))),
                     )
 
     return grouped_df
