@@ -203,6 +203,7 @@ li a:active{
 .action-header{
   padding: 1%;
   border-bottom: solid 1px silver;
+  width: 100%;
 }
 
 .logout{
@@ -450,6 +451,7 @@ table{
   overflow: scroll;
   margin-top: 1%;
   margin-bottom: 2%;
+  font-size: 15px;
   
 }
 

@@ -24,6 +24,7 @@
 </form>
 <script>
     $(document).ready(function(){
+        $("#id_last_updated_by").val("{{user.email}}");
         $('#ActivityRegisterForm').submit(function(event){
             event.preventDefault();
             $.getJSON("/services/GetServiceByID/"+$('#id_service').val(), function(data1){

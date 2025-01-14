@@ -11,6 +11,7 @@ class ActivityForm(ModelForm):
         widgets = {
             'service': forms.TextInput(),
             'beneficiary': forms.TextInput(),
+            'last_updated_by': forms.HiddenInput()
         }
 
 

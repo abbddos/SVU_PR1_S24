@@ -11,5 +11,6 @@ class ServiceForm(ModelForm):
         fields = '__all__'
         widgets = {
             'start_date': DateInput(),
-            'end_date': DateInput()
+            'end_date': DateInput(),
+            'last_updated_by': forms.HiddenInput()
         }

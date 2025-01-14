@@ -17,6 +17,7 @@
                 <th>Village/Neighborhood:</th>
                 <th>Start Date:</th>
                 <th>End Date:</th>
+                <th>Last updated by:</th>
                 <th>Delete:</th>
             </tr>
 
@@ -56,7 +57,7 @@
     </div>
     <script>
 $(document).ready(function(){
-
+            $("#id_last_updated_by").val("{{user.email}}");
             var submission_method = 0;
             var uid;
             $('#srch').keyup(function(){
@@ -75,7 +76,7 @@ $(document).ready(function(){
 
             $.getJSON('/services/GetAllServices/', function(data){
                 for(var i=0; i < data.length; i++){                
-                   $('#Grid').after("<tr class = ' table-row' id = '"+data[i].service_id+"''><td>"+data[i].service_id+"</td><td>"+data[i].service_type+"</td><td>"+data[i].governorate+"</td><td>"+data[i].district+"</td><td>"+data[i].sub_district+"</td><td>"+data[i].village_neighborhood+"</td><td>"+data[i].start_date.toString()+"</td><td>"+data[i].end_date.toString()+"</td><td><a href='/services/DeleteService/"+data[i].service_id+"'>Delete</a></td></tr>");
+                   $('#Grid').after("<tr class = ' table-row' id = '"+data[i].service_id+"''><td>"+data[i].service_id+"</td><td>"+data[i].service_type+"</td><td>"+data[i].governorate+"</td><td>"+data[i].district+"</td><td>"+data[i].sub_district+"</td><td>"+data[i].village_neighborhood+"</td><td>"+data[i].start_date.toString()+"</td><td>"+data[i].end_date.toString()+"<td>"+data[i].last_updated_by+"</td>"+"</td><td><a href='/services/DeleteService/"+data[i].service_id+"'>Delete</a></td></tr>");
                 }
 
                 $('.table-row').click(function(){
@@ -114,7 +115,6 @@ $(document).ready(function(){
                 $('#id_village_neighborhood').val('');
                 $('#id_start-date').val('');
                 $('#id_end_date').val('');
-                $('#id_role').prepend("<option value = ' ' selected hidden> </option>");
             });
 
             $('#ServiceCreationForm').submit(function(event){

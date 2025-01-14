@@ -31,6 +31,7 @@ class Service(models.Model):
 
     start_date = models.DateField(default = datetime.date.today, null = False, blank = False)
     end_date = models.DateField(null = False, blank = False)
+    last_updated_by = models.EmailField(max_length=254, null = True, blank = True) 
 
 
 

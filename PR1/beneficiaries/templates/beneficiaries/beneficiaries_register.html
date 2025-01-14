@@ -19,6 +19,7 @@
                     <th>Sex:</th>
                     <th>National Identifier:</th>
                     <th>National Identifier Number:</th>
+                    <th>Last updated by:</th>
                     <th>Delete:</th>
                     <th>Print ID:</th>
                     <th>History:</th>
@@ -56,7 +57,7 @@
     </div>
     <script>
 $(document).ready(function(){
-
+            $("#id_last_updated_by").val("{{user.email}}");
             var submission_method = 0;
             var uid;
             $('#srch').keyup(function(){
@@ -87,7 +88,7 @@ $(document).ready(function(){
 
             $.getJSON('/beneficiaries/GetAllBeneficiaries/', function(data){
                 for(var i=0; i < data.length; i++){                
-                   $('#Grid').after("<tr class = 'table-row' id = '"+data[i].beneficiary_id+"''><td>"+data[i].beneficiary_id+"</td><td>"+data[i].first_name+"</td><td>"+data[i].middle_name+"</td><td>"+data[i].last_name+"</td><td>"+data[i].date_of_birth.toString()+"</td><td>"+data[i].place_of_birth+"</td><td>"+data[i].sex+"</td><td>"+data[i].national_identifier_type+"</td><td>"+data[i].national_identifier_number+"</td><td><a href='/beneficiaries/DeleteBeneficiary/"+data[i].beneficiary_id+"'>Delete</a></td><td><a href = '/beneficiaries/PrintID/"+data[i].beneficiary_id+"'>Print ID</a></td><td><a href = '/activities/history/"+data[i].beneficiary_id+"'>View History</a></td></tr>");
+                   $('#Grid').after("<tr class = 'table-row' id = '"+data[i].beneficiary_id+"''><td>"+data[i].beneficiary_id+"</td><td>"+data[i].first_name+"</td><td>"+data[i].middle_name+"</td><td>"+data[i].last_name+"</td><td>"+data[i].date_of_birth.toString()+"</td><td>"+data[i].place_of_birth+"</td><td>"+data[i].sex+"</td><td>"+data[i].national_identifier_type+"</td><td>"+data[i].national_identifier_number+"</td>"+"<td>"+data[i].last_updated_by+"</td>"+"<td><a href='/beneficiaries/DeleteBeneficiary/"+data[i].beneficiary_id+"'>Delete</a></td><td><a href = '/beneficiaries/PrintID/"+data[i].beneficiary_id+"'>Print ID</a></td><td><a href = '/activities/history/"+data[i].beneficiary_id+"'>View History</a></td></tr>");
                 }
 
                 $('.table-row').click(function(){

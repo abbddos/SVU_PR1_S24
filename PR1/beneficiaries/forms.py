@@ -10,5 +10,6 @@ class BeneficiaryForm(ModelForm):
         model = Beneficiary
         fields = '__all__'
         widgets = {
-            'date_of_birth': DateInput()
+            'date_of_birth': DateInput(),
+            'last_updated_by': forms.HiddenInput()
         }
